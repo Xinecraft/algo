@@ -16,6 +16,9 @@ func main() {
 	fmt.Println(idx)
 	//fmt.Println(notfound)
 
-	sorting.SelectionSort(arr)
+	//sorting.SelectionSort(arr)
+	//fmt.Print(arr)
+
+	sorting.BubbleSort(arr)
 	fmt.Print(arr)
 }

@@ -34,9 +34,12 @@ func main() {
   fmt.Println(list)
   fmt.Println("Length", list.Length)
   fmt.Println("Find:", list.Find("sda"))
-  value, ok := list.Get(3)
+  value, ok := list.GetAt(3)
   fmt.Println("Get:", value, "Ok:", ok)
   fmt.Println("Removing")
   list.RemoveAt(0)
+  fmt.Println(list)
+  fmt.Println("Inserting")
+  list.InsertAt("kakamora", 2)
   fmt.Println(list)
 }

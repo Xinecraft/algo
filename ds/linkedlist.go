@@ -20,7 +20,7 @@ type LinkedList[T comparable] struct {
 /**
 Add Item to the End of LinkedList
 */
-func (l *LinkedList[T]) Append(item T)  {
+func (l *LinkedList[T]) Append(item T) bool {
   l.Length = l.Length + 1
 
   newNode := Node[T]{value: item}
@@ -35,12 +35,14 @@ func (l *LinkedList[T]) Append(item T)  {
   }
 
   l.tail = &newNode
+
+  return true
 }
 
 /**
 Add Item to the Start of LinkedList
 */
-func (l *LinkedList[T]) Prepend(item T)  {
+func (l *LinkedList[T]) Prepend(item T) bool {
   l.Length = l.Length + 1
 
   newNode := Node[T]{value: item}
@@ -55,6 +57,34 @@ func (l *LinkedList[T]) Prepend(item T)  {
   }
 
   l.head = &newNode
+
+  return true
+}
+
+func (l *LinkedList[T]) InsertAt(item T, idx int) bool  {
+  curr := l.getNode(idx)
+
+  if curr == nil {
+    return false
+  }
+
+  newNode := Node[T]{value: item}
+  newNode.prev = curr.prev
+  newNode.next = curr
+
+  if curr.prev  != nil {
+    curr.prev.next = &newNode
+  }
+
+  if idx == 0 {
+    l.head = curr
+  } else if idx == l.Length - 1 {
+    l.tail = curr
+  }
+
+  curr.prev = &newNode
+
+  return true
 }
 
 /**
@@ -119,7 +149,7 @@ func (l *LinkedList[T]) RemoveAt(idx int) T  {
 /**
 Get Nth Item from LinkedList
 */
-func (l *LinkedList[T]) Get(idx int) (T, bool)  {
+func (l *LinkedList[T]) GetAt(idx int) (T, bool)  {
   node := l.getNode(idx)
 
   if node == nil {

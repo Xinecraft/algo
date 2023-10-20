@@ -6,207 +6,213 @@ import (
 )
 
 type Node[T comparable] struct {
-  value T
-  next *Node[T]
-  prev *Node[T]
+	value T
+	next  *Node[T]
+	prev  *Node[T]
 }
 
 type LinkedList[T comparable] struct {
-  head *Node[T]
-  tail *Node[T]
-  Length int
+	head   *Node[T]
+	tail   *Node[T]
+	Length int
 }
 
-/**
+/*
+*
 Add Item to the End of LinkedList
 */
 func (l *LinkedList[T]) Append(item T) bool {
-  l.Length = l.Length + 1
+	l.Length = l.Length + 1
 
-  newNode := Node[T]{value: item}
-  newNode.prev = l.tail
+	newNode := Node[T]{value: item}
+	newNode.prev = l.tail
 
-  if (l.head == nil) {
-    l.head = &newNode
-  }
+	if l.head == nil {
+		l.head = &newNode
+	}
 
-  if (l.tail != nil) {
-    l.tail.next = &newNode
-  }
+	if l.tail != nil {
+		l.tail.next = &newNode
+	}
 
-  l.tail = &newNode
+	l.tail = &newNode
 
-  return true
+	return true
 }
 
-/**
+/*
+*
 Add Item to the Start of LinkedList
 */
 func (l *LinkedList[T]) Prepend(item T) bool {
-  l.Length = l.Length + 1
+	l.Length = l.Length + 1
 
-  newNode := Node[T]{value: item}
-  newNode.next = l.head
+	newNode := Node[T]{value: item}
+	newNode.next = l.head
 
-  if (l.tail == nil) {
-    l.tail = &newNode
-  }
+	if l.tail == nil {
+		l.tail = &newNode
+	}
 
-  if (l.head != nil) {
-    l.head.prev = &newNode
-  }
+	if l.head != nil {
+		l.head.prev = &newNode
+	}
 
-  l.head = &newNode
+	l.head = &newNode
 
-  return true
+	return true
 }
 
-func (l *LinkedList[T]) InsertAt(item T, idx int) bool  {
-  curr := l.getNode(idx)
+func (l *LinkedList[T]) InsertAt(item T, idx int) bool {
+	curr := l.getNode(idx)
 
-  if curr == nil {
-    return false
-  }
+	if curr == nil {
+		return false
+	}
 
-  newNode := Node[T]{value: item}
-  newNode.prev = curr.prev
-  newNode.next = curr
+	newNode := Node[T]{value: item}
+	newNode.prev = curr.prev
+	newNode.next = curr
 
-  if curr.prev  != nil {
-    curr.prev.next = &newNode
-  }
+	if curr.prev != nil {
+		curr.prev.next = &newNode
+	}
 
-  if idx == 0 {
-    l.head = curr
-  } else if idx == l.Length - 1 {
-    l.tail = curr
-  }
+	if idx == 0 {
+		l.head = curr
+	} else if idx == l.Length-1 {
+		l.tail = curr
+	}
 
-  curr.prev = &newNode
+	curr.prev = &newNode
 
-  return true
+	return true
 }
 
-/**
+/*
+*
 Remove the First Item of LinkedList
 */
-func (l *LinkedList[T]) RemoveFirst() T  {
-  return l.RemoveAt(0)
+func (l *LinkedList[T]) RemoveFirst() T {
+	return l.RemoveAt(0)
 }
 
-/**
+/*
+*
 Remove the Last Item of LinkedList
 */
-func (l *LinkedList[T]) RemoveLast() T  {
-  return l.RemoveAt(l.Length - 1)
+func (l *LinkedList[T]) RemoveLast() T {
+	return l.RemoveAt(l.Length - 1)
 }
 
-/**
+/*
+*
 Search Item T and remove from LinkedList
 */
-func (l *LinkedList[T]) Remove(item T) T  {
-  _, idx := l.findNode(item)
-  
-  return l.RemoveAt(idx)
+func (l *LinkedList[T]) Remove(item T) T {
+	_, idx := l.findNode(item)
+
+	return l.RemoveAt(idx)
 }
 
-/**
+/*
+*
 Remove Nth Item from LinkedList
 */
-func (l *LinkedList[T]) RemoveAt(idx int) T  {
-  curr := l.getNode(idx)
-  value := curr.value
+func (l *LinkedList[T]) RemoveAt(idx int) T {
+	curr := l.getNode(idx)
+	value := curr.value
 
-  if curr == nil {
-    return *new(T)
-  }
+	if curr == nil {
+		return *new(T)
+	}
 
-  l.Length--
+	l.Length--
 
-  if l.Length <= 0 {
-    l.head = nil
-    l.tail = nil
-    return value
-  }
+	if l.Length <= 0 {
+		l.head = nil
+		l.tail = nil
+		return value
+	}
 
-  if (curr.prev != nil) {
-    curr.prev.next = curr.next
-  }
+	if curr.prev != nil {
+		curr.prev.next = curr.next
+	}
 
-  if(curr.next != nil) {
-    curr.next.prev = curr.prev
-  }
+	if curr.next != nil {
+		curr.next.prev = curr.prev
+	}
 
-  if idx == 0 {
-    l.head = curr.next
-  } else if idx == l.Length - 1 {
-    l.tail = curr.prev
-  }
+	if idx == 0 {
+		l.head = curr.next
+	} else if idx == l.Length-1 {
+		l.tail = curr.prev
+	}
 
-  return value
+	return value
 }
 
-/**
+/*
+*
 Get Nth Item from LinkedList
 */
-func (l *LinkedList[T]) GetAt(idx int) (T, bool)  {
-  node := l.getNode(idx)
+func (l *LinkedList[T]) GetAt(idx int) (T, bool) {
+	node := l.getNode(idx)
 
-  if node == nil {
-    return *new(T),false
-  }
+	if node == nil {
+		return *new(T), false
+	}
 
-  return node.value, true
+	return node.value, true
 }
 
-/**
+/*
+*
 Find if Item T exists in LinkedList
 */
 func (l *LinkedList[T]) Find(item T) int {
-  _, idx := l.findNode(item)
+	_, idx := l.findNode(item)
 
-  return idx
+	return idx
 }
 
 func (l LinkedList[T]) String() string {
-  str := strings.Builder{}
+	str := strings.Builder{}
 
-  for i := l.head; i != nil; i = i.next {
-    str.WriteString(fmt.Sprint(i.value))
+	for i := l.head; i != nil; i = i.next {
+		str.WriteString(fmt.Sprint(i.value))
 
-    if(i.next != nil) {
-      str.WriteString(" -> ")
-    }
-  }
+		if i.next != nil {
+			str.WriteString(" -> ")
+		}
+	}
 
-  return str.String()
+	return str.String()
 }
 
-
 func (l *LinkedList[T]) getNode(idx int) *Node[T] {
-  if idx > l.Length {
-    return nil
-  }
+	if idx > l.Length {
+		return nil
+	}
 
-  currNode := l.head
-  for i := 0; i < idx; i++ {
-    currNode = currNode.next
-  }
+	currNode := l.head
+	for i := 0; i < idx; i++ {
+		currNode = currNode.next
+	}
 
-  return currNode
+	return currNode
 }
 
 func (l *LinkedList[T]) findNode(item T) (*Node[T], int) {
-  currNode := l.head
-  idx := 0
-  for currNode != nil {
-    if currNode.value == item {
-      return currNode, idx
-    }
-    currNode = currNode.next
-    idx++
-  }
+	currNode := l.head
+	idx := 0
+	for currNode != nil {
+		if currNode.value == item {
+			return currNode, idx
+		}
+		currNode = currNode.next
+		idx++
+	}
 
-  return nil, -1
+	return nil, -1
 }
-

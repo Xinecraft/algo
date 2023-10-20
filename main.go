@@ -1,9 +1,8 @@
 package main
 
 import (
-	//"github.com/xinecraft/algo/searching"
-	// "github.com/xinecraft/algo/sorting"
-  "fmt"
+	"fmt"
+
 	"github.com/xinecraft/algo/ds"
 )
 
@@ -22,51 +21,51 @@ func main() {
 	//fmt.Println(arr)
 
 	//sorting.BubbleSort(arr2)
-  // sorting.InsertionSort(arr2)
-  // fmt.Println(arr2)
+	// sorting.InsertionSort(arr2)
+	// fmt.Println(arr2)
 
-  // LinkedList
-  // list := ds.LinkedList[string]{}
-  // list.Append("1")
-  // list.Append("2")
-  // list.Append("3")
-  // list.Prepend("sda")
-  // fmt.Println(list)
-  // fmt.Println("Length", list.Length)
-  // fmt.Println("Find:", list.Find("sda"))
-  // value, ok := list.GetAt(3)
-  // fmt.Println("Get:", value, "Ok:", ok)
-  // fmt.Println("Removing")
-  // list.RemoveAt(0)
-  // fmt.Println(list)
-  // fmt.Println("Inserting")
-  // list.InsertAt("kakamora", 2)
-  // fmt.Println(list)
+	// LinkedList
+	// list := ds.LinkedList[string]{}
+	// list.Append("1")
+	// list.Append("2")
+	// list.Append("3")
+	// list.Prepend("sda")
+	// fmt.Println(list)
+	// fmt.Println("Length", list.Length)
+	// fmt.Println("Find:", list.Find("sda"))
+	// value, ok := list.GetAt(3)
+	// fmt.Println("Get:", value, "Ok:", ok)
+	// fmt.Println("Removing")
+	// list.RemoveAt(0)
+	// fmt.Println(list)
+	// fmt.Println("Inserting")
+	// list.InsertAt("kakamora", 2)
+	// fmt.Println(list)
 
-  // Queue
-  // queue := ds.Queue[int]{}
-  // queue.Enqueue(1)
-  // queue.Enqueue(7)
-  // queue.Enqueue(5)
-  // fmt.Println(queue.Peek())
-  // item := queue.Dequeue()
-  // fmt.Println(item)
-  // fmt.Println(queue.Peek())
-  // fmt.Println(queue.Size())
+	// Queue
+	// queue := ds.Queue[int]{}
+	// queue.Enqueue(1)
+	// queue.Enqueue(7)
+	// queue.Enqueue(5)
+	// fmt.Println(queue.Peek())
+	// item := queue.Dequeue()
+	// fmt.Println(item)
+	// fmt.Println(queue.Peek())
+	// fmt.Println(queue.Size())
 
-  // Stack
-  stack := ds.Stack[float32]{}
-  stack.Push(3.10)
-  stack.Push(8.50)
-  stack.Push(11.50)
-  stack.Push(17.50)
-  fmt.Printf("stack: %v\n", stack)
-  stack.Push(19.50)
-  fmt.Printf("stack: %v\n", stack)
-  fmt.Println(stack.Pop())
-  fmt.Printf("stack: %v\n", stack)
-  stack.Push(33.50)
-  fmt.Printf("stack: %v\n", stack)
-  fmt.Println(stack.Pop())
-  fmt.Printf("stack: %v\n", stack)
+	// Stack
+	stack := ds.Stack[float32]{}
+	stack.Push(3.10)
+	stack.Push(8.50)
+	stack.Push(11.50)
+	stack.Push(17.50)
+	fmt.Printf("stack: %v\n", stack)
+	stack.Push(19.50)
+	fmt.Printf("stack: %v\n", stack)
+	fmt.Println(stack.Pop())
+	fmt.Printf("stack: %v\n", stack)
+	stack.Push(33.50)
+	fmt.Printf("stack: %v\n", stack)
+	fmt.Println(stack.Pop())
+	fmt.Printf("stack: %v\n", stack)
 }

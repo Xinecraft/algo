@@ -53,4 +53,20 @@ func main() {
   // fmt.Println(item)
   // fmt.Println(queue.Peek())
   // fmt.Println(queue.Size())
+
+  // Stack
+  stack := ds.Stack[float32]{}
+  stack.Push(3.10)
+  stack.Push(8.50)
+  stack.Push(11.50)
+  stack.Push(17.50)
+  fmt.Printf("stack: %v\n", stack)
+  stack.Push(19.50)
+  fmt.Printf("stack: %v\n", stack)
+  fmt.Println(stack.Pop())
+  fmt.Printf("stack: %v\n", stack)
+  stack.Push(33.50)
+  fmt.Printf("stack: %v\n", stack)
+  fmt.Println(stack.Pop())
+  fmt.Printf("stack: %v\n", stack)
 }

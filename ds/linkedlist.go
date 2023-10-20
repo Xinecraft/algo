@@ -1,17 +1,25 @@
 package ds
 
-type Node[T any] struct {
+import (
+	"fmt"
+	"strings"
+)
+
+type Node[T comparable] struct {
   value T
   next *Node[T]
   prev *Node[T]
 }
 
-type LinkedList[T any] struct {
+type LinkedList[T comparable] struct {
   head *Node[T]
   tail *Node[T]
   Length int
 }
 
+/**
+Add Item to the End of LinkedList
+*/
 func (l *LinkedList[T]) Append(item T)  {
   l.Length = l.Length + 1
 
@@ -29,6 +37,9 @@ func (l *LinkedList[T]) Append(item T)  {
   l.tail = &newNode
 }
 
+/**
+Add Item to the Start of LinkedList
+*/
 func (l *LinkedList[T]) Prepend(item T)  {
   l.Length = l.Length + 1
 
@@ -46,35 +57,101 @@ func (l *LinkedList[T]) Prepend(item T)  {
   l.head = &newNode
 }
 
-func (l *LinkedList[T]) Remove(item T)  {
-  print("Removed")
+/**
+Remove the First Item of LinkedList
+*/
+func (l *LinkedList[T]) RemoveFirst() T  {
+  return l.RemoveAt(0)
 }
 
-func (l *LinkedList[T]) RemoveAt(idx int)  {
-  if idx > l.Length {
-    return
+/**
+Remove the Last Item of LinkedList
+*/
+func (l *LinkedList[T]) RemoveLast() T  {
+  return l.RemoveAt(l.Length - 1)
+}
+
+/**
+Search Item T and remove from LinkedList
+*/
+func (l *LinkedList[T]) Remove(item T) T  {
+  _, idx := l.findNode(item)
+  
+  return l.RemoveAt(idx)
+}
+
+/**
+Remove Nth Item from LinkedList
+*/
+func (l *LinkedList[T]) RemoveAt(idx int) T  {
+  curr := l.getNode(idx)
+  value := curr.value
+
+  if curr == nil {
+    return *new(T)
   }
 
-  for i := 0; i < idx; i++ {
-    print("Removed")
+  l.Length--
+
+  if l.Length <= 0 {
+    l.head = nil
+    l.tail = nil
+    return value
   }
-}
 
-func (l *LinkedList[T]) Get(idx int)  {
-  print("get")
-}
-
-func (l *LinkedList[T]) Find(item T) {
-  print("Finding")
-}
-
-func (l *LinkedList[T]) Print() {
-  node := l.head
-  for node != nil {
-    print(" -> ", node.value)
-    node = node.next
+  if (curr.prev != nil) {
+    curr.prev.next = curr.next
   }
+
+  if(curr.next != nil) {
+    curr.next.prev = curr.prev
+  }
+
+  if idx == 0 {
+    l.head = curr.next
+  } else if idx == l.Length - 1 {
+    l.tail = curr.prev
+  }
+
+  return value
 }
+
+/**
+Get Nth Item from LinkedList
+*/
+func (l *LinkedList[T]) Get(idx int) (T, bool)  {
+  node := l.getNode(idx)
+
+  if node == nil {
+    return *new(T),false
+  }
+
+  return node.value, true
+}
+
+/**
+Find if Item T exists in LinkedList
+*/
+func (l *LinkedList[T]) Find(item T) int {
+  _, idx := l.findNode(item)
+
+  return idx
+}
+
+func (l LinkedList[T]) String() string {
+  str := strings.Builder{}
+
+  for i := l.head; i != nil; i = i.next {
+    str.WriteString(fmt.Sprint(i.value))
+
+    if(i.next != nil) {
+      str.WriteString(" -> ")
+    }
+  }
+
+  return str.String()
+}
+
 
 func (l *LinkedList[T]) getNode(idx int) *Node[T] {
   if idx > l.Length {
@@ -89,9 +166,17 @@ func (l *LinkedList[T]) getNode(idx int) *Node[T] {
   return currNode
 }
 
-func (l *LinkedList[T]) findNode(idx int) *Node[T] {
+func (l *LinkedList[T]) findNode(item T) (*Node[T], int) {
   currNode := l.head
+  idx := 0
+  for currNode != nil {
+    if currNode.value == item {
+      return currNode, idx
+    }
+    currNode = currNode.next
+    idx++
+  }
 
-
-  return currNode
+  return nil, -1
 }
+

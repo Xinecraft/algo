@@ -3,6 +3,7 @@ package main
 import (
 	//"github.com/xinecraft/algo/searching"
 	// "github.com/xinecraft/algo/sorting"
+  "fmt"
 	"github.com/xinecraft/algo/ds"
 )
 
@@ -24,11 +25,18 @@ func main() {
   // sorting.InsertionSort(arr2)
   // fmt.Println(arr2)
 
+  // LinkedList
   list := ds.LinkedList[string]{}
   list.Append("1")
   list.Append("2")
   list.Append("3")
   list.Prepend("sda")
-  list.Print()
-  print("\nLength", list.Length)
+  fmt.Println(list)
+  fmt.Println("Length", list.Length)
+  fmt.Println("Find:", list.Find("sda"))
+  value, ok := list.Get(3)
+  fmt.Println("Get:", value, "Ok:", ok)
+  fmt.Println("Removing")
+  list.RemoveAt(0)
+  fmt.Println(list)
 }

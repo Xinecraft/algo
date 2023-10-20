@@ -11,5 +11,4 @@ func TestBinarySearch(t *testing.T) {
 	if result != 9 {
 		t.Errorf("Error")
 	}
-
 }

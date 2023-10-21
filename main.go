@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/xinecraft/algo/ds"
+	"github.com/xinecraft/algo/dynamic_connectivity"
 )
 
 func main() {
@@ -54,18 +54,46 @@ func main() {
 	// fmt.Println(queue.Size())
 
 	// Stack
-	stack := ds.Stack[float32]{}
-	stack.Push(3.10)
-	stack.Push(8.50)
-	stack.Push(11.50)
-	stack.Push(17.50)
-	fmt.Printf("stack: %v\n", stack)
-	stack.Push(19.50)
-	fmt.Printf("stack: %v\n", stack)
-	fmt.Println(stack.Pop())
-	fmt.Printf("stack: %v\n", stack)
-	stack.Push(33.50)
-	fmt.Printf("stack: %v\n", stack)
-	fmt.Println(stack.Pop())
-	fmt.Printf("stack: %v\n", stack)
+	// stack := ds.Stack[float32]{}
+	// stack.Push(3.10)
+	// stack.Push(8.50)
+	// stack.Push(11.50)
+	// stack.Push(17.50)
+	// fmt.Printf("stack: %v\n", stack)
+	// stack.Push(19.50)
+	// fmt.Printf("stack: %v\n", stack)
+	// fmt.Println(stack.Pop())
+	// fmt.Printf("stack: %v\n", stack)
+	// stack.Push(33.50)
+	// fmt.Printf("stack: %v\n", stack)
+	// fmt.Println(stack.Pop())
+	// fmt.Printf("stack: %v\n", stack)
+
+	qf := dynamic_connectivity.MakeQuickFind(10)
+	qf.Union(0, 1)
+	qf.Union(1, 9)
+	qf.Union(5, 6)
+	qf.Union(5, 1)
+	fmt.Println("Connected: ", qf.Connected(5, 9))
+
+	qu := dynamic_connectivity.MakeQuickUnion(10)
+	qu.Union(0, 1)
+	qu.Union(1, 9)
+	qu.Union(5, 6)
+	qu.Union(5, 1)
+	fmt.Println("Connected: ", qu.Connected(5, 9))
+
+	quw := dynamic_connectivity.MakeQuickUnionWeighted(10)
+	quw.Union(0, 1)
+	quw.Union(1, 9)
+	quw.Union(5, 6)
+	quw.Union(5, 1)
+	fmt.Println("Connected: ", quw.Connected(5, 9))
+
+	quwpc := dynamic_connectivity.MakeQuickUnionWeightedPathCompressed(10)
+	quwpc.Union(0, 1)
+	quwpc.Union(1, 9)
+	quwpc.Union(5, 6)
+	quwpc.Union(5, 1)
+	fmt.Println("Connected: ", quwpc.Connected(5, 9))
 }
